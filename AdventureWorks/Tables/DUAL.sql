@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[DUAL] (
+    [DUMMY] VARCHAR (1) NULL
+);
+
