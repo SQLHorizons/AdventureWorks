@@ -8,7 +8,7 @@
     [PurchasingWebServiceURL] NVARCHAR (1024)       NULL,
     [ModifiedDate]            DATETIME              CONSTRAINT [DF_Vendor_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_Vendor_BusinessEntityID] PRIMARY KEY CLUSTERED ([BusinessEntityID] ASC),
-    CONSTRAINT [CK_Vendor_CreditRating] CHECK ([CreditRating]>=(1) AND [CreditRating]<=(5)),
+    CONSTRAINT [CK_Vendor_CreditRating] CHECK ([Vendor].[CreditRating]>=(1) AND [Vendor].[CreditRating]<=(5)),
     CONSTRAINT [FK_Vendor_BusinessEntity_BusinessEntityID] FOREIGN KEY ([BusinessEntityID]) REFERENCES [Person].[BusinessEntity] ([BusinessEntityID])
 );
 

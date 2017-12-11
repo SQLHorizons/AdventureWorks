@@ -12,11 +12,11 @@
     [ActualCost]         MONEY          NULL,
     [ModifiedDate]       DATETIME       CONSTRAINT [DF_WorkOrderRouting_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence] PRIMARY KEY CLUSTERED ([WorkOrderID] ASC, [ProductID] ASC, [OperationSequence] ASC),
-    CONSTRAINT [CK_WorkOrderRouting_ActualCost] CHECK ([ActualCost]>(0.00)),
-    CONSTRAINT [CK_WorkOrderRouting_ActualEndDate] CHECK ([ActualEndDate]>=[ActualStartDate] OR [ActualEndDate] IS NULL OR [ActualStartDate] IS NULL),
-    CONSTRAINT [CK_WorkOrderRouting_ActualResourceHrs] CHECK ([ActualResourceHrs]>=(0.0000)),
-    CONSTRAINT [CK_WorkOrderRouting_PlannedCost] CHECK ([PlannedCost]>(0.00)),
-    CONSTRAINT [CK_WorkOrderRouting_ScheduledEndDate] CHECK ([ScheduledEndDate]>=[ScheduledStartDate]),
+    CONSTRAINT [CK_WorkOrderRouting_ActualCost] CHECK ([WorkOrderRouting].[ActualCost]>(0.00)),
+    CONSTRAINT [CK_WorkOrderRouting_ActualEndDate] CHECK ([WorkOrderRouting].[ActualEndDate]>=[WorkOrderRouting].[ActualStartDate] OR [WorkOrderRouting].[ActualEndDate] IS NULL OR [WorkOrderRouting].[ActualStartDate] IS NULL),
+    CONSTRAINT [CK_WorkOrderRouting_ActualResourceHrs] CHECK ([WorkOrderRouting].[ActualResourceHrs]>=(0.0000)),
+    CONSTRAINT [CK_WorkOrderRouting_PlannedCost] CHECK ([WorkOrderRouting].[PlannedCost]>(0.00)),
+    CONSTRAINT [CK_WorkOrderRouting_ScheduledEndDate] CHECK ([WorkOrderRouting].[ScheduledEndDate]>=[WorkOrderRouting].[ScheduledStartDate]),
     CONSTRAINT [FK_WorkOrderRouting_Location_LocationID] FOREIGN KEY ([LocationID]) REFERENCES [Production].[Location] ([LocationID]),
     CONSTRAINT [FK_WorkOrderRouting_WorkOrder_WorkOrderID] FOREIGN KEY ([WorkOrderID]) REFERENCES [Production].[WorkOrder] ([WorkOrderID])
 );

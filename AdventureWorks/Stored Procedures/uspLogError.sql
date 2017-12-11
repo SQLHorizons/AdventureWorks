@@ -31,17 +31,17 @@ BEGIN
 
         INSERT [dbo].[ErrorLog] 
             (
-            [UserName], 
-            [ErrorNumber], 
-            [ErrorSeverity], 
-            [ErrorState], 
-            [ErrorProcedure], 
-            [ErrorLine], 
-            [ErrorMessage]
+            [dbo].[ErrorLog].[UserName], 
+            [dbo].[ErrorLog].[ErrorNumber], 
+            [dbo].[ErrorLog].[ErrorSeverity], 
+            [dbo].[ErrorLog].[ErrorState], 
+            [dbo].[ErrorLog].[ErrorProcedure], 
+            [dbo].[ErrorLog].[ErrorLine], 
+            [dbo].[ErrorLog].[ErrorMessage]
             ) 
         VALUES 
             (
-            CONVERT(sysname, CURRENT_USER), 
+            CONVERT([sys].[sysname], CURRENT_USER), 
             ERROR_NUMBER(),
             ERROR_SEVERITY(),
             ERROR_STATE(),

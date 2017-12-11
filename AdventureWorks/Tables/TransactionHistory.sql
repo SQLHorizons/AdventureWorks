@@ -9,7 +9,7 @@
     [ActualCost]           MONEY     NOT NULL,
     [ModifiedDate]         DATETIME  CONSTRAINT [DF_TransactionHistory_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_TransactionHistory_TransactionID] PRIMARY KEY CLUSTERED ([TransactionID] ASC),
-    CONSTRAINT [CK_TransactionHistory_TransactionType] CHECK (upper([TransactionType])='P' OR upper([TransactionType])='S' OR upper([TransactionType])='W'),
+    CONSTRAINT [CK_TransactionHistory_TransactionType] CHECK (upper([TransactionHistory].[TransactionType])='P' OR upper([TransactionHistory].[TransactionType])='S' OR upper([TransactionHistory].[TransactionType])='W'),
     CONSTRAINT [FK_TransactionHistory_Product_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [Production].[Product] ([ProductID])
 );
 

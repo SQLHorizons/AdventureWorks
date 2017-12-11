@@ -2,10 +2,10 @@
 CREATE VIEW [Person].[vAdditionalContactInfo] 
 AS 
 SELECT 
-    [BusinessEntityID] 
-    ,[FirstName]
-    ,[MiddleName]
-    ,[LastName]
+    [Person].[Person].[BusinessEntityID] 
+    ,[Person].[Person].[FirstName]
+    ,[Person].[Person].[MiddleName]
+    ,[Person].[Person].[LastName]
     ,[ContactInfo].ref.value(N'declare namespace ci="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ContactInfo"; 
         declare namespace act="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ContactTypes"; 
         (act:telephoneNumber)[1]/act:number', 'nvarchar(50)') AS [TelephoneNumber] 
@@ -39,13 +39,13 @@ SELECT
     ,[ContactInfo].ref.value(N'declare namespace ci="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ContactInfo"; 
         declare namespace act="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ContactTypes"; 
         (act:eMail/act:SpecialInstructions/act:telephoneNumber/act:number)[1]', 'nvarchar(50)') AS [EMailTelephoneNumber] 
-    ,[rowguid] 
-    ,[ModifiedDate]
+    ,[Person].[Person].[rowguid] 
+    ,[Person].[Person].[ModifiedDate]
 FROM [Person].[Person]
-OUTER APPLY [AdditionalContactInfo].nodes(
+OUTER APPLY [Person].[AdditionalContactInfo].nodes(
     'declare namespace ci="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ContactInfo"; 
     /ci:AdditionalContactInfo') AS ContactInfo(ref) 
-WHERE [AdditionalContactInfo] IS NOT NULL;
+WHERE [Person].[Person].[AdditionalContactInfo] IS NOT NULL;
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Displays the contact name and content from each element in the xml column AdditionalContactInfo for that person.', @level0type = N'SCHEMA', @level0name = N'Person', @level1type = N'VIEW', @level1name = N'vAdditionalContactInfo';

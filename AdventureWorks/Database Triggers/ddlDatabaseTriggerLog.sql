@@ -5,9 +5,9 @@ BEGIN
     SET NOCOUNT ON;
 
     DECLARE @data XML;
-    DECLARE @schema sysname;
-    DECLARE @object sysname;
-    DECLARE @eventType sysname;
+    DECLARE @schema [sys].[sysname];
+    DECLARE @object [sys].[sysname];
+    DECLARE @eventType [sys].[sysname];
 
     SET @data = EVENTDATA();
     SET @eventType = @data.value('(/EVENT_INSTANCE/EventType)[1]', 'sysname');
@@ -24,21 +24,21 @@ BEGIN
 
     INSERT [dbo].[DatabaseLog] 
         (
-        [PostTime], 
-        [DatabaseUser], 
-        [Event], 
-        [Schema], 
-        [Object], 
-        [TSQL], 
-        [XmlEvent]
+        [dbo].[DatabaseLog].[PostTime], 
+        [dbo].[DatabaseLog].[DatabaseUser], 
+        [dbo].[DatabaseLog].[Event], 
+        [dbo].[DatabaseLog].[Schema], 
+        [dbo].[DatabaseLog].[Object], 
+        [dbo].[DatabaseLog].[TSQL], 
+        [dbo].[DatabaseLog].[XmlEvent]
         ) 
     VALUES 
         (
         GETDATE(), 
-        CONVERT(sysname, CURRENT_USER), 
+        CONVERT([sys].[sysname], CURRENT_USER), 
         @eventType, 
-        CONVERT(sysname, @schema), 
-        CONVERT(sysname, @object), 
+        CONVERT([sys].[sysname], @schema), 
+        CONVERT([sys].[sysname], @object), 
         @data.value('(/EVENT_INSTANCE/TSQLCommand)[1]', 'nvarchar(max)'), 
         @data
         );

@@ -9,11 +9,11 @@
     [rowguid]          UNIQUEIDENTIFIER CONSTRAINT [DF_SalesPerson_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]     DATETIME         CONSTRAINT [DF_SalesPerson_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SalesPerson_BusinessEntityID] PRIMARY KEY CLUSTERED ([BusinessEntityID] ASC),
-    CONSTRAINT [CK_SalesPerson_Bonus] CHECK ([Bonus]>=(0.00)),
-    CONSTRAINT [CK_SalesPerson_CommissionPct] CHECK ([CommissionPct]>=(0.00)),
-    CONSTRAINT [CK_SalesPerson_SalesLastYear] CHECK ([SalesLastYear]>=(0.00)),
-    CONSTRAINT [CK_SalesPerson_SalesQuota] CHECK ([SalesQuota]>(0.00)),
-    CONSTRAINT [CK_SalesPerson_SalesYTD] CHECK ([SalesYTD]>=(0.00)),
+    CONSTRAINT [CK_SalesPerson_Bonus] CHECK ([SalesPerson].[Bonus]>=(0.00)),
+    CONSTRAINT [CK_SalesPerson_CommissionPct] CHECK ([SalesPerson].[CommissionPct]>=(0.00)),
+    CONSTRAINT [CK_SalesPerson_SalesLastYear] CHECK ([SalesPerson].[SalesLastYear]>=(0.00)),
+    CONSTRAINT [CK_SalesPerson_SalesQuota] CHECK ([SalesPerson].[SalesQuota]>(0.00)),
+    CONSTRAINT [CK_SalesPerson_SalesYTD] CHECK ([SalesPerson].[SalesYTD]>=(0.00)),
     CONSTRAINT [FK_SalesPerson_Employee_BusinessEntityID] FOREIGN KEY ([BusinessEntityID]) REFERENCES [HumanResources].[Employee] ([BusinessEntityID]),
     CONSTRAINT [FK_SalesPerson_SalesTerritory_TerritoryID] FOREIGN KEY ([TerritoryID]) REFERENCES [Sales].[SalesTerritory] ([TerritoryID])
 );

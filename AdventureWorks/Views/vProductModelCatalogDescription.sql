@@ -2,8 +2,8 @@
 CREATE VIEW [Production].[vProductModelCatalogDescription] 
 AS 
 SELECT 
-    [ProductModelID] 
-    ,[Name] 
+    [Production].[ProductModel].[ProductModelID] 
+    ,[Production].[ProductModel].[Name] 
     ,[CatalogDescription].value(N'declare namespace p1="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ProductModelDescription"; 
         declare namespace html="http://www.w3.org/1999/xhtml"; 
         (/p1:ProductDescription/p1:Summary/html:p)[1]', 'nvarchar(max)') AS [Summary] 
@@ -56,10 +56,10 @@ SELECT
         (/p1:ProductDescription/p1:Specifications/Style)[1]', 'nvarchar(256)') AS [Style] 
     ,[CatalogDescription].value(N'declare namespace p1="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/ProductModelDescription"; 
         (/p1:ProductDescription/p1:Specifications/RiderExperience)[1]', 'nvarchar(1024)') AS [RiderExperience] 
-    ,[rowguid] 
-    ,[ModifiedDate]
+    ,[Production].[ProductModel].[rowguid] 
+    ,[Production].[ProductModel].[ModifiedDate]
 FROM [Production].[ProductModel] 
-WHERE [CatalogDescription] IS NOT NULL;
+WHERE [Production].[ProductModel].[CatalogDescription] IS NOT NULL;
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Displays the content from each element in the xml column CatalogDescription for each product in the Production.ProductModel table that has catalog data.', @level0type = N'SCHEMA', @level0name = N'Production', @level1type = N'VIEW', @level1name = N'vProductModelCatalogDescription';

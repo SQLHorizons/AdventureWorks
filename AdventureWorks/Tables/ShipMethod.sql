@@ -6,8 +6,8 @@
     [rowguid]      UNIQUEIDENTIFIER CONSTRAINT [DF_ShipMethod_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate] DATETIME         CONSTRAINT [DF_ShipMethod_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_ShipMethod_ShipMethodID] PRIMARY KEY CLUSTERED ([ShipMethodID] ASC),
-    CONSTRAINT [CK_ShipMethod_ShipBase] CHECK ([ShipBase]>(0.00)),
-    CONSTRAINT [CK_ShipMethod_ShipRate] CHECK ([ShipRate]>(0.00))
+    CONSTRAINT [CK_ShipMethod_ShipBase] CHECK ([ShipMethod].[ShipBase]>(0.00)),
+    CONSTRAINT [CK_ShipMethod_ShipRate] CHECK ([ShipMethod].[ShipRate]>(0.00))
 );
 
 

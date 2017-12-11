@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[ErrorLog] (
     [ErrorLogID]     INT             IDENTITY (1, 1) NOT NULL,
     [ErrorTime]      DATETIME        CONSTRAINT [DF_ErrorLog_ErrorTime] DEFAULT (getdate()) NOT NULL,
-    [UserName]       [sysname]       NOT NULL,
+    [UserName]       [sys].[sysname]       NOT NULL,
     [ErrorNumber]    INT             NOT NULL,
     [ErrorSeverity]  INT             NULL,
     [ErrorState]     INT             NULL,

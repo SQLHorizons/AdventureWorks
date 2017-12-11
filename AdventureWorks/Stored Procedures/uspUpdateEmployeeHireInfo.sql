@@ -16,16 +16,16 @@ BEGIN
         BEGIN TRANSACTION;
 
         UPDATE [HumanResources].[Employee] 
-        SET [JobTitle] = @JobTitle 
-            ,[HireDate] = @HireDate 
-            ,[CurrentFlag] = @CurrentFlag 
-        WHERE [BusinessEntityID] = @BusinessEntityID;
+        SET [HumanResources].[Employee].[JobTitle] = @JobTitle 
+            ,[HumanResources].[Employee].[HireDate] = @HireDate 
+            ,[HumanResources].[Employee].[CurrentFlag] = @CurrentFlag 
+        WHERE [HumanResources].[Employee].[BusinessEntityID] = @BusinessEntityID;
 
         INSERT INTO [HumanResources].[EmployeePayHistory] 
-            ([BusinessEntityID]
-            ,[RateChangeDate]
-            ,[Rate]
-            ,[PayFrequency]) 
+            ([HumanResources].[EmployeePayHistory].[BusinessEntityID]
+            ,[HumanResources].[EmployeePayHistory].[RateChangeDate]
+            ,[HumanResources].[EmployeePayHistory].[Rate]
+            ,[HumanResources].[EmployeePayHistory].[PayFrequency]) 
         VALUES (@BusinessEntityID, @RateChangeDate, @Rate, @PayFrequency);
 
         COMMIT TRANSACTION;

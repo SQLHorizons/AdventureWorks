@@ -9,7 +9,7 @@
     [ActualCost]           MONEY     NOT NULL,
     [ModifiedDate]         DATETIME  CONSTRAINT [DF_TransactionHistoryArchive_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_TransactionHistoryArchive_TransactionID] PRIMARY KEY CLUSTERED ([TransactionID] ASC),
-    CONSTRAINT [CK_TransactionHistoryArchive_TransactionType] CHECK (upper([TransactionType])='P' OR upper([TransactionType])='S' OR upper([TransactionType])='W')
+    CONSTRAINT [CK_TransactionHistoryArchive_TransactionType] CHECK (upper([TransactionHistoryArchive].[TransactionType])='P' OR upper([TransactionHistoryArchive].[TransactionType])='S' OR upper([TransactionHistoryArchive].[TransactionType])='W')
 );
 
 

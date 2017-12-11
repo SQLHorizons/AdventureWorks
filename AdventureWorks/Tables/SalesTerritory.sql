@@ -10,10 +10,10 @@
     [rowguid]           UNIQUEIDENTIFIER CONSTRAINT [DF_SalesTerritory_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]      DATETIME         CONSTRAINT [DF_SalesTerritory_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SalesTerritory_TerritoryID] PRIMARY KEY CLUSTERED ([TerritoryID] ASC),
-    CONSTRAINT [CK_SalesTerritory_CostLastYear] CHECK ([CostLastYear]>=(0.00)),
-    CONSTRAINT [CK_SalesTerritory_CostYTD] CHECK ([CostYTD]>=(0.00)),
-    CONSTRAINT [CK_SalesTerritory_SalesLastYear] CHECK ([SalesLastYear]>=(0.00)),
-    CONSTRAINT [CK_SalesTerritory_SalesYTD] CHECK ([SalesYTD]>=(0.00)),
+    CONSTRAINT [CK_SalesTerritory_CostLastYear] CHECK ([SalesTerritory].[CostLastYear]>=(0.00)),
+    CONSTRAINT [CK_SalesTerritory_CostYTD] CHECK ([SalesTerritory].[CostYTD]>=(0.00)),
+    CONSTRAINT [CK_SalesTerritory_SalesLastYear] CHECK ([SalesTerritory].[SalesLastYear]>=(0.00)),
+    CONSTRAINT [CK_SalesTerritory_SalesYTD] CHECK ([SalesTerritory].[SalesYTD]>=(0.00)),
     CONSTRAINT [FK_SalesTerritory_CountryRegion_CountryRegionCode] FOREIGN KEY ([CountryRegionCode]) REFERENCES [Person].[CountryRegion] ([CountryRegionCode])
 );
 

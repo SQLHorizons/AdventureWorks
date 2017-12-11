@@ -12,11 +12,11 @@ BEGIN
 
     BEGIN TRY
         UPDATE [HumanResources].[Employee] 
-        SET [NationalIDNumber] = @NationalIDNumber 
-            ,[BirthDate] = @BirthDate 
-            ,[MaritalStatus] = @MaritalStatus 
-            ,[Gender] = @Gender 
-        WHERE [BusinessEntityID] = @BusinessEntityID;
+        SET [HumanResources].[Employee].[NationalIDNumber] = @NationalIDNumber 
+            ,[HumanResources].[Employee].[BirthDate] = @BirthDate 
+            ,[HumanResources].[Employee].[MaritalStatus] = @MaritalStatus 
+            ,[HumanResources].[Employee].[Gender] = @Gender 
+        WHERE [HumanResources].[Employee].[BusinessEntityID] = @BusinessEntityID;
     END TRY
     BEGIN CATCH
         EXECUTE [dbo].[uspLogError];

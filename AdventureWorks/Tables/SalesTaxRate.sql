@@ -7,7 +7,7 @@
     [rowguid]         UNIQUEIDENTIFIER CONSTRAINT [DF_SalesTaxRate_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]    DATETIME         CONSTRAINT [DF_SalesTaxRate_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SalesTaxRate_SalesTaxRateID] PRIMARY KEY CLUSTERED ([SalesTaxRateID] ASC),
-    CONSTRAINT [CK_SalesTaxRate_TaxType] CHECK ([TaxType]>=(1) AND [TaxType]<=(3)),
+    CONSTRAINT [CK_SalesTaxRate_TaxType] CHECK ([SalesTaxRate].[TaxType]>=(1) AND [SalesTaxRate].[TaxType]<=(3)),
     CONSTRAINT [FK_SalesTaxRate_StateProvince_StateProvinceID] FOREIGN KEY ([StateProvinceID]) REFERENCES [Person].[StateProvince] ([StateProvinceID])
 );
 

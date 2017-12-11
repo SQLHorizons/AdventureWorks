@@ -7,13 +7,13 @@
     [SpecialOfferID]        INT              NOT NULL,
     [UnitPrice]             MONEY            NOT NULL,
     [UnitPriceDiscount]     MONEY            CONSTRAINT [DF_SalesOrderDetail_UnitPriceDiscount] DEFAULT ((0.0)) NOT NULL,
-    [LineTotal]             AS               (isnull(([UnitPrice]*((1.0)-[UnitPriceDiscount]))*[OrderQty],(0.0))),
+    [LineTotal]             AS               (isnull(([SalesOrderDetail].[UnitPrice]*((1.0)-[SalesOrderDetail].[UnitPriceDiscount]))*[SalesOrderDetail].[OrderQty],(0.0))),
     [rowguid]               UNIQUEIDENTIFIER CONSTRAINT [DF_SalesOrderDetail_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]          DATETIME         CONSTRAINT [DF_SalesOrderDetail_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID] PRIMARY KEY CLUSTERED ([SalesOrderID] ASC, [SalesOrderDetailID] ASC),
-    CONSTRAINT [CK_SalesOrderDetail_OrderQty] CHECK ([OrderQty]>(0)),
-    CONSTRAINT [CK_SalesOrderDetail_UnitPrice] CHECK ([UnitPrice]>=(0.00)),
-    CONSTRAINT [CK_SalesOrderDetail_UnitPriceDiscount] CHECK ([UnitPriceDiscount]>=(0.00)),
+    CONSTRAINT [CK_SalesOrderDetail_OrderQty] CHECK ([SalesOrderDetail].[OrderQty]>(0)),
+    CONSTRAINT [CK_SalesOrderDetail_UnitPrice] CHECK ([SalesOrderDetail].[UnitPrice]>=(0.00)),
+    CONSTRAINT [CK_SalesOrderDetail_UnitPriceDiscount] CHECK ([SalesOrderDetail].[UnitPriceDiscount]>=(0.00)),
     CONSTRAINT [FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID] FOREIGN KEY ([SalesOrderID]) REFERENCES [Sales].[SalesOrderHeader] ([SalesOrderID]) ON DELETE CASCADE,
     CONSTRAINT [FK_SalesOrderDetail_SpecialOfferProduct_SpecialOfferIDProductID] FOREIGN KEY ([SpecialOfferID], [ProductID]) REFERENCES [Sales].[SpecialOfferProduct] ([SpecialOfferID], [ProductID])
 );
@@ -48,13 +48,13 @@ BEGIN
         -- Insert record into TransactionHistory
         BEGIN
             INSERT INTO [Production].[TransactionHistory]
-                ([ProductID]
-                ,[ReferenceOrderID]
-                ,[ReferenceOrderLineID]
-                ,[TransactionType]
-                ,[TransactionDate]
-                ,[Quantity]
-                ,[ActualCost])
+                ([Production].[TransactionHistory].[ProductID]
+                ,[Production].[TransactionHistory].[ReferenceOrderID]
+                ,[Production].[TransactionHistory].[ReferenceOrderLineID]
+                ,[Production].[TransactionHistory].[TransactionType]
+                ,[Production].[TransactionHistory].[TransactionDate]
+                ,[Production].[TransactionHistory].[Quantity]
+                ,[Production].[TransactionHistory].[ActualCost])
             SELECT 
                 inserted.[ProductID]
                 ,inserted.[SalesOrderID]

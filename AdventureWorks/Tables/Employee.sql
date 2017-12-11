@@ -3,7 +3,7 @@
     [NationalIDNumber]  NVARCHAR (15)       NOT NULL,
     [LoginID]           NVARCHAR (256)      NOT NULL,
     [OrganizationNode]  [sys].[hierarchyid] NULL,
-    [OrganizationLevel] AS                  ([OrganizationNode].[GetLevel]()),
+    [OrganizationLevel] AS                  ([Employee].[OrganizationNode].[GetLevel]()),
     [JobTitle]          NVARCHAR (50)       NOT NULL,
     [BirthDate]         DATE                NOT NULL,
     [MaritalStatus]     NCHAR (1)           NOT NULL,
@@ -16,12 +16,12 @@
     [rowguid]           UNIQUEIDENTIFIER    CONSTRAINT [DF_Employee_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]      DATETIME            CONSTRAINT [DF_Employee_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_Employee_BusinessEntityID] PRIMARY KEY CLUSTERED ([BusinessEntityID] ASC),
-    CONSTRAINT [CK_Employee_BirthDate] CHECK ([BirthDate]>='1930-01-01' AND [BirthDate]<=dateadd(year,(-18),getdate())),
-    CONSTRAINT [CK_Employee_Gender] CHECK (upper([Gender])='F' OR upper([Gender])='M'),
-    CONSTRAINT [CK_Employee_HireDate] CHECK ([HireDate]>='1996-07-01' AND [HireDate]<=dateadd(day,(1),getdate())),
-    CONSTRAINT [CK_Employee_MaritalStatus] CHECK (upper([MaritalStatus])='S' OR upper([MaritalStatus])='M'),
-    CONSTRAINT [CK_Employee_SickLeaveHours] CHECK ([SickLeaveHours]>=(0) AND [SickLeaveHours]<=(120)),
-    CONSTRAINT [CK_Employee_VacationHours] CHECK ([VacationHours]>=(-40) AND [VacationHours]<=(240)),
+    CONSTRAINT [CK_Employee_BirthDate] CHECK ([Employee].[BirthDate]>='1930-01-01' AND [Employee].[BirthDate]<=dateadd(year,(-18),getdate())),
+    CONSTRAINT [CK_Employee_Gender] CHECK (upper([Employee].[Gender])='F' OR upper([Employee].[Gender])='M'),
+    CONSTRAINT [CK_Employee_HireDate] CHECK ([Employee].[HireDate]>='1996-07-01' AND [Employee].[HireDate]<=dateadd(day,(1),getdate())),
+    CONSTRAINT [CK_Employee_MaritalStatus] CHECK (upper([Employee].[MaritalStatus])='S' OR upper([Employee].[MaritalStatus])='M'),
+    CONSTRAINT [CK_Employee_SickLeaveHours] CHECK ([Employee].[SickLeaveHours]>=(0) AND [Employee].[SickLeaveHours]<=(120)),
+    CONSTRAINT [CK_Employee_VacationHours] CHECK ([Employee].[VacationHours]>=(-40) AND [Employee].[VacationHours]<=(240)),
     CONSTRAINT [FK_Employee_Person_BusinessEntityID] FOREIGN KEY ([BusinessEntityID]) REFERENCES [Person].[Person] ([BusinessEntityID])
 );
 

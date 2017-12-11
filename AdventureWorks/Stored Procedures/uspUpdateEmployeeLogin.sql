@@ -1,7 +1,7 @@
 ﻿
 CREATE PROCEDURE [HumanResources].[uspUpdateEmployeeLogin]
     @BusinessEntityID [int], 
-    @OrganizationNode [hierarchyid],
+    @OrganizationNode [sys].[hierarchyid],
     @LoginID [nvarchar](256),
     @JobTitle [nvarchar](50),
     @HireDate [datetime],
@@ -13,12 +13,12 @@ BEGIN
 
     BEGIN TRY
         UPDATE [HumanResources].[Employee] 
-        SET [OrganizationNode] = @OrganizationNode 
-            ,[LoginID] = @LoginID 
-            ,[JobTitle] = @JobTitle 
-            ,[HireDate] = @HireDate 
-            ,[CurrentFlag] = @CurrentFlag 
-        WHERE [BusinessEntityID] = @BusinessEntityID;
+        SET [HumanResources].[Employee].[OrganizationNode] = @OrganizationNode 
+            ,[HumanResources].[Employee].[LoginID] = @LoginID 
+            ,[HumanResources].[Employee].[JobTitle] = @JobTitle 
+            ,[HumanResources].[Employee].[HireDate] = @HireDate 
+            ,[HumanResources].[Employee].[CurrentFlag] = @CurrentFlag 
+        WHERE [HumanResources].[Employee].[BusinessEntityID] = @BusinessEntityID;
     END TRY
     BEGIN CATCH
         EXECUTE [dbo].[uspLogError];

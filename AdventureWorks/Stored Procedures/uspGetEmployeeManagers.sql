@@ -14,7 +14,7 @@ BEGIN
 			ON p.[BusinessEntityID] = e.[BusinessEntityID]
         WHERE e.[BusinessEntityID] = @BusinessEntityID
         UNION ALL
-        SELECT e.[BusinessEntityID], e.[OrganizationNode], p.[FirstName], p.[LastName], e.[JobTitle], [RecursionLevel] + 1 -- Join recursive member to anchor
+        SELECT e.[BusinessEntityID], e.[OrganizationNode], p.[FirstName], p.[LastName], e.[JobTitle], [EMP_cte].[RecursionLevel] + 1 -- Join recursive member to anchor
         FROM [HumanResources].[Employee] e 
             INNER JOIN [EMP_cte]
             ON e.[OrganizationNode] = [EMP_cte].[OrganizationNode].GetAncestor(1)
@@ -29,7 +29,7 @@ BEGIN
         ON [EMP_cte].[OrganizationNode].GetAncestor(1) = e.[OrganizationNode]
         INNER JOIN [Person].[Person] p 
         ON p.[BusinessEntityID] = e.[BusinessEntityID]
-    ORDER BY [RecursionLevel], [EMP_cte].[OrganizationNode].ToString()
+    ORDER BY [EMP_cte].[RecursionLevel], [EMP_cte].[OrganizationNode].ToString()
     OPTION (MAXRECURSION 25) 
 END;
 

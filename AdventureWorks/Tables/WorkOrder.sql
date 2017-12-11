@@ -2,7 +2,7 @@
     [WorkOrderID]   INT      IDENTITY (1, 1) NOT NULL,
     [ProductID]     INT      NOT NULL,
     [OrderQty]      INT      NOT NULL,
-    [StockedQty]    AS       (isnull([OrderQty]-[ScrappedQty],(0))),
+    [StockedQty]    AS       (isnull([WorkOrder].[OrderQty]-[WorkOrder].[ScrappedQty],(0))),
     [ScrappedQty]   SMALLINT NOT NULL,
     [StartDate]     DATETIME NOT NULL,
     [EndDate]       DATETIME NULL,
@@ -10,9 +10,9 @@
     [ScrapReasonID] SMALLINT NULL,
     [ModifiedDate]  DATETIME CONSTRAINT [DF_WorkOrder_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_WorkOrder_WorkOrderID] PRIMARY KEY CLUSTERED ([WorkOrderID] ASC),
-    CONSTRAINT [CK_WorkOrder_EndDate] CHECK ([EndDate]>=[StartDate] OR [EndDate] IS NULL),
-    CONSTRAINT [CK_WorkOrder_OrderQty] CHECK ([OrderQty]>(0)),
-    CONSTRAINT [CK_WorkOrder_ScrappedQty] CHECK ([ScrappedQty]>=(0)),
+    CONSTRAINT [CK_WorkOrder_EndDate] CHECK ([WorkOrder].[EndDate]>=[WorkOrder].[StartDate] OR [WorkOrder].[EndDate] IS NULL),
+    CONSTRAINT [CK_WorkOrder_OrderQty] CHECK ([WorkOrder].[OrderQty]>(0)),
+    CONSTRAINT [CK_WorkOrder_ScrappedQty] CHECK ([WorkOrder].[ScrappedQty]>=(0)),
     CONSTRAINT [FK_WorkOrder_Product_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [Production].[Product] ([ProductID]),
     CONSTRAINT [FK_WorkOrder_ScrapReason_ScrapReasonID] FOREIGN KEY ([ScrapReasonID]) REFERENCES [Production].[ScrapReason] ([ScrapReasonID])
 );
@@ -43,12 +43,12 @@ BEGIN
 
     BEGIN TRY
         INSERT INTO [Production].[TransactionHistory](
-            [ProductID]
-            ,[ReferenceOrderID]
-            ,[TransactionType]
-            ,[TransactionDate]
-            ,[Quantity]
-            ,[ActualCost])
+            [Production].[TransactionHistory].[ProductID]
+            ,[Production].[TransactionHistory].[ReferenceOrderID]
+            ,[Production].[TransactionHistory].[TransactionType]
+            ,[Production].[TransactionHistory].[TransactionDate]
+            ,[Production].[TransactionHistory].[Quantity]
+            ,[Production].[TransactionHistory].[ActualCost])
         SELECT 
             inserted.[ProductID]
             ,inserted.[WorkOrderID]
@@ -89,11 +89,11 @@ BEGIN
         IF UPDATE([ProductID]) OR UPDATE([OrderQty])
         BEGIN
             INSERT INTO [Production].[TransactionHistory](
-                [ProductID]
-                ,[ReferenceOrderID]
-                ,[TransactionType]
-                ,[TransactionDate]
-                ,[Quantity])
+                [Production].[TransactionHistory].[ProductID]
+                ,[Production].[TransactionHistory].[ReferenceOrderID]
+                ,[Production].[TransactionHistory].[TransactionType]
+                ,[Production].[TransactionHistory].[TransactionDate]
+                ,[Production].[TransactionHistory].[Quantity])
             SELECT 
                 inserted.[ProductID]
                 ,inserted.[WorkOrderID]

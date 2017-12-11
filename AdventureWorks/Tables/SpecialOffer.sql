@@ -11,10 +11,10 @@
     [rowguid]        UNIQUEIDENTIFIER CONSTRAINT [DF_SpecialOffer_rowguid] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
     [ModifiedDate]   DATETIME         CONSTRAINT [DF_SpecialOffer_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SpecialOffer_SpecialOfferID] PRIMARY KEY CLUSTERED ([SpecialOfferID] ASC),
-    CONSTRAINT [CK_SpecialOffer_DiscountPct] CHECK ([DiscountPct]>=(0.00)),
-    CONSTRAINT [CK_SpecialOffer_EndDate] CHECK ([EndDate]>=[StartDate]),
-    CONSTRAINT [CK_SpecialOffer_MaxQty] CHECK ([MaxQty]>=(0)),
-    CONSTRAINT [CK_SpecialOffer_MinQty] CHECK ([MinQty]>=(0))
+    CONSTRAINT [CK_SpecialOffer_DiscountPct] CHECK ([SpecialOffer].[DiscountPct]>=(0.00)),
+    CONSTRAINT [CK_SpecialOffer_EndDate] CHECK ([SpecialOffer].[EndDate]>=[SpecialOffer].[StartDate]),
+    CONSTRAINT [CK_SpecialOffer_MaxQty] CHECK ([SpecialOffer].[MaxQty]>=(0)),
+    CONSTRAINT [CK_SpecialOffer_MinQty] CHECK ([SpecialOffer].[MinQty]>=(0))
 );
 
 

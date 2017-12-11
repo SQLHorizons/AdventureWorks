@@ -8,7 +8,7 @@
     [Comments]        NVARCHAR (3850) NULL,
     [ModifiedDate]    DATETIME        CONSTRAINT [DF_ProductReview_ModifiedDate] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_ProductReview_ProductReviewID] PRIMARY KEY CLUSTERED ([ProductReviewID] ASC),
-    CONSTRAINT [CK_ProductReview_Rating] CHECK ([Rating]>=(1) AND [Rating]<=(5)),
+    CONSTRAINT [CK_ProductReview_Rating] CHECK ([ProductReview].[Rating]>=(1) AND [ProductReview].[Rating]<=(5)),
     CONSTRAINT [FK_ProductReview_Product_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [Production].[Product] ([ProductID])
 );
 
